@@ -5,20 +5,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.CardInput;
 
 public class Hero extends Card implements Cloneable {
-    public Hero(CardInput cardInput, int health) {
+    public Hero(final CardInput cardInput, final int health) {
         super(cardInput);
         this.health = health;
-    }
-
-    @Override
-    public String toString() {
-        return "Hero{" +
-                "health=" + health +
-                ", mana=" + mana +
-                ", description='" + description + '\'' +
-                ", colors=" + colors +
-                ", name='" + name + '\'' +
-                '}';
     }
 
     /**
@@ -26,14 +15,14 @@ public class Hero extends Card implements Cloneable {
      * @param hero
      * @return
      */
-    static public ObjectNode cardMapper (Hero hero) {
+    public static ObjectNode cardMapper(final Hero hero) {
 
         ObjectNode hero1 = mapper.createObjectNode();
         hero1.put("mana", hero.mana);
         hero1.put("description", hero.description);
 
         ArrayNode arrayNode = mapper.createArrayNode();
-        for(String color : hero.colors) {
+        for (String color : hero.colors) {
             arrayNode.add(color);
         }
         hero1.set("colors", arrayNode);
@@ -43,11 +32,11 @@ public class Hero extends Card implements Cloneable {
         return hero1;
     }
 
-    public int getHealth() {
+    public final int getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    public final void setHealth(final int health) {
         this.health = health;
     }
 

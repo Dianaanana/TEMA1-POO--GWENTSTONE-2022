@@ -1,14 +1,12 @@
 package fileio;
 
-import cards.Card;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public final class Coordinates {
    private int x, y;
 
-   public static ObjectMapper mapper = new ObjectMapper();
+   private static ObjectMapper mapper = new ObjectMapper();
 
    public Coordinates() {
    }
@@ -29,17 +27,12 @@ public final class Coordinates {
       this.y = y;
    }
 
-   @Override
-   public String toString() {
-      return "Coordinates{"
-              + "x="
-              + x
-              + ", y="
-              + y
-              + '}';
-   }
-
-   public static ObjectNode mapperCoordinates(Coordinates coordinates) {
+   /**
+    *
+    * @param coordinates
+    * @return
+    */
+   public static ObjectNode mapperCoordinates(final Coordinates coordinates) {
       ObjectNode coordinatesMapped = mapper.createObjectNode();
       coordinatesMapped.put("x", coordinates.x);
       coordinatesMapped.put("y", coordinates.y);

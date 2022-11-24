@@ -2,8 +2,10 @@ package cards;
 
 import fileio.CardInput;
 
-public class KingMudface extends Hero implements Cloneable {
-    public KingMudface(CardInput cardInput, int health) {
+import static helpme.MagicNumber.MAX_CARDS;
+
+public final class KingMudface extends Hero implements Cloneable {
+    public KingMudface(final CardInput cardInput, final int health) {
         super(cardInput, health);
     }
 
@@ -21,12 +23,12 @@ public class KingMudface extends Hero implements Cloneable {
      *
      * @param row
      */
-    public void ability(Card[] row) {
+    public void ability(final Card[] row) {
         if (row == null) {
             return;
         }
 
-        for (int c = 0; c < 5; c++) {
+        for (int c = 0; c < MAX_CARDS; c++) {
             if (row[c] == null) {
                 continue;
             }

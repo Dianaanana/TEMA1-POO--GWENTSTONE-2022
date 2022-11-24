@@ -3,13 +3,12 @@ package cards;
 import actions.Abilities;
 import fileio.CardInput;
 
-// randul din fata
-public class TheRipper extends Minion implements Cloneable, Abilities {
+public final class TheRipper extends Minion implements Cloneable, Abilities {
     /**
      *
      * @param enemy
      */
-    public void ability(Minion enemy) {
+    public void ability(final Minion enemy) {
         if (enemy.attackDamage < 2) {
             enemy.attackDamage = 0;
         } else {
@@ -21,9 +20,9 @@ public class TheRipper extends Minion implements Cloneable, Abilities {
      *
      * @param cardInput
      */
-    public TheRipper(CardInput cardInput) {
+    public TheRipper(final CardInput cardInput) {
         super(cardInput);
-        super.ability = 1;
+        super.setAbility(1);
     }
 
     /**
@@ -36,7 +35,8 @@ public class TheRipper extends Minion implements Cloneable, Abilities {
      * @param ability
      * @param tank
      */
-    public TheRipper(Card card, int health, int attackDamage, int row, int frozen, int ability, int tank) {
+    public TheRipper(final Card card, final int health, final int attackDamage,
+                     final int row, final int frozen, final int ability, final int tank) {
         super(card, health, attackDamage, row, frozen, ability, tank);
     }
 

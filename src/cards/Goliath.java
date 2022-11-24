@@ -11,7 +11,7 @@ public class Goliath extends Minion implements Cloneable {
      */
     public Goliath(CardInput cardInput) {
         super(cardInput);
-        super.tank = 1;
+        super.setTank(1);
     }
 
     /**

@@ -3,8 +3,10 @@ package cards;
 import actions.Attacks;
 import fileio.CardInput;
 
-public class EmpressThorina extends Hero implements Cloneable {
-    public EmpressThorina(CardInput cardInput, int health) {
+import static helpme.MagicNumber.MAX_CARDS;
+
+public final class EmpressThorina extends Hero implements Cloneable {
+    public EmpressThorina(final CardInput cardInput, final int health) {
         super(cardInput, health);
     }
 
@@ -23,13 +25,13 @@ public class EmpressThorina extends Hero implements Cloneable {
      * @param row
      * @param rowIndex
      */
-    public void ability(Card[] row, int rowIndex) {
+    public void ability(final Card[] row, final int rowIndex) {
         if (row == null) {
             return;
         }
 
         Card highestHealthCard = null;
-        for (int c = 0; c < 5; c++) {
+        for (int c = 0; c < MAX_CARDS; c++) {
             if (row[c] == null) {
                 continue;
             }

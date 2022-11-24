@@ -22,11 +22,11 @@ public class Miraj extends Minion implements Cloneable, Abilities {
      */
     public Miraj(CardInput cardInput) {
         super(cardInput);
-        super.ability = 1;
+        super.setAbility(1);
     }
 
     /**
-     * \
+     *
      * @return
      * @throws CloneNotSupportedException
      */

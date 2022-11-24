@@ -9,7 +9,7 @@ public class Warden extends Minion implements Cloneable {
      */
     public Warden(CardInput cardInput) {
         super(cardInput);
-        super.tank = 1;
+        super.setTank(1);
     }
 
     /**

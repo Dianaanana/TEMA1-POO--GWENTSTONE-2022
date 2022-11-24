@@ -10,16 +10,26 @@ import decks.Decks;
 import java.util.ArrayList;
 
 
-public class Commands {
-    static ObjectMapper mapper = new ObjectMapper();
+public final class Commands {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+
+    public static ObjectMapper getMapper() {
+        return MAPPER;
+    }
+
+
+    private Commands() {
+    }
 
     /**
      *
      * @param input
      * @return
      */
-    public static ArrayNode getPlayerDeck(ArrayList<Card> input) {
-        ArrayNode outputArray = mapper.createArrayNode();
+    private static ArrayNode getPlayerDeck(final ArrayList<Card> input) {
+        ArrayNode outputArray = getMapper().createArrayNode();
+//        ArrayNode outputArray = mapper.createArrayNode();
         Decks.decksMapper(input);
         return outputArray;
     }
@@ -29,8 +39,8 @@ public class Commands {
      * @param hero
      * @return
      */
-    public static ObjectNode getPlayerHero(Hero hero) {
-        ObjectNode outputHero = mapper.createObjectNode();
+    private static ObjectNode getPlayerHero(final Hero hero) {
+        ObjectNode outputHero = getMapper().createObjectNode();
         Hero.cardMapper(hero);
         return outputHero;
     }

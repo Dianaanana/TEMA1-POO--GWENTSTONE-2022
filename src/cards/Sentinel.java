@@ -4,7 +4,7 @@ import fileio.CardInput;
 
 // randul din spate
 public class Sentinel extends Minion implements Cloneable {
-    public Sentinel(CardInput cardInput) {
+    public Sentinel(final CardInput cardInput) {
         super(cardInput);
     }
 

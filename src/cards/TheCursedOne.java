@@ -9,7 +9,7 @@ public class TheCursedOne extends Minion implements Cloneable, Abilities {
      *
      * @param enemy
      */
-    public void ability(Minion enemy) {
+    public void ability(final Minion enemy) {
         int buff;
         buff = enemy.attackDamage;
         enemy.attackDamage = enemy.health;
@@ -20,9 +20,9 @@ public class TheCursedOne extends Minion implements Cloneable, Abilities {
      *
      * @param cardInput
      */
-    public TheCursedOne(CardInput cardInput) {
+    public TheCursedOne(final CardInput cardInput) {
         super(cardInput);
-        super.ability = 1;
+        super.setAbility(1);
     }
 
     /**

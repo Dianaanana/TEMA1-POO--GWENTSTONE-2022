@@ -6,13 +6,18 @@ import fileio.CardInput;
 
 public class Environement extends Card implements Cloneable {
 
-    public ObjectNode CardMapper(Environement environement) {
+    /**
+     *
+     * @param environement
+     * @return
+     */
+    public ObjectNode cardMapper(final Environement environement) {
         ObjectNode environement1 = mapper.createObjectNode();
         environement1.put("mana", environement.mana);
         environement1.put("description", environement.description);
 
         ArrayNode arrayNode = mapper.createArrayNode();
-        for(String color : environement.colors) {
+        for (String color : environement.colors) {
             arrayNode.add(color);
         }
         environement1.set("colors", arrayNode);
@@ -20,14 +25,19 @@ public class Environement extends Card implements Cloneable {
 
         return environement1;
     }
-    public Environement(CardInput cardInput) {
+    public Environement(final CardInput cardInput) {
         super(cardInput);
     }
 
-    public Environement(Card card) {
+    public Environement(final Card card) {
         super(card);
     }
 
+    /**
+     *
+     * @return
+     * @throws CloneNotSupportedException
+     */
     public Object clone() throws CloneNotSupportedException {
         Environement clone = (Environement) super.clone();
         return clone;

@@ -4,30 +4,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.CardInput;
-import server.*;
-import helpme.*;
 
 import java.util.ArrayList;
 
-public class  Card implements Cloneable {
+public class Card implements Cloneable {
     int mana;
     int attackDamage;
     int health;
     String description;
     ArrayList<String> colors;
     String name;
-
     int hasAttackedThisRound;
 
-     public static ObjectMapper mapper = new ObjectMapper();
-
-     // DONE
+    public static ObjectMapper mapper = new ObjectMapper();
 
     /**
      *
      * @param cardInput
      */
-    public Card(CardInput cardInput) {
+    public Card(final CardInput cardInput) {
         this.mana = cardInput.getMana();
         this.attackDamage = cardInput.getAttackDamage();
         this.health = cardInput.getHealth();
@@ -36,13 +31,11 @@ public class  Card implements Cloneable {
         this.name = cardInput.getName();
     }
 
-    // DONE
-
     /**
      *
      * @param card
      */
-    public Card(Card card) {
+    public Card(final Card card) {
         this.mana = card.getMana();
         this.attackDamage = card.getAttackDamage();
         this.health = card.getHealth();
@@ -56,15 +49,13 @@ public class  Card implements Cloneable {
      * @param card
      * @return
      */
-    public static ObjectNode cardMapperEnvironement (Card card) {
+    public static ObjectNode cardMapperEnvironement(final Card card) {
         ObjectNode cardMapped = mapper.createObjectNode();
         cardMapped.put("mana", card.mana);
-//        cardMapped.put("attackDamage", card.attackDamage);
-//        cardMapped.put("health", card.health);
         cardMapped.put("description", card.description);
 
         ArrayNode arrayNode = mapper.createArrayNode();
-        for(String color : card.colors) {
+        for (String color : card.colors) {
             arrayNode.add(color);
         }
         cardMapped.set("colors", arrayNode);
@@ -73,14 +64,12 @@ public class  Card implements Cloneable {
         return cardMapped;
     };
 
-//     mapeaza cartea
-
     /**
      *
      * @param card
      * @return
      */
-    public static ObjectNode cardMapperMinion (Card card) {
+    public static ObjectNode cardMapperMinion(final Card card) {
         ObjectNode cardMapped = mapper.createObjectNode();
         cardMapped.put("mana", card.mana);
         cardMapped.put("attackDamage", card.attackDamage);
@@ -88,7 +77,7 @@ public class  Card implements Cloneable {
         cardMapped.put("description", card.description);
 
         ArrayNode arrayNode = mapper.createArrayNode();
-            for(String color : card.colors) {
+        for (String color : card.colors) {
             arrayNode.add(color);
         }
         cardMapped.set("colors", arrayNode);
@@ -97,27 +86,27 @@ public class  Card implements Cloneable {
         return cardMapped;
     };
 
-    public int getMana() {
+    public final int getMana() {
         return mana;
     }
 
-    public void setMana(int mana) {
+    public final void setMana(final int mana) {
         this.mana = mana;
     }
 
-    public String getDescription() {
+    public final String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public final void setDescription(final String description) {
         this.description = description;
     }
 
-    public int getAttackDamage() {
+    public final int getAttackDamage() {
         return attackDamage;
     }
 
-    public void setAttackDamage(int attackDamage) {
+    public final void setAttackDamage(final int attackDamage) {
         this.attackDamage = attackDamage;
     }
 
@@ -125,35 +114,33 @@ public class  Card implements Cloneable {
         return health;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(final int health) {
         this.health = health;
     }
 
-    public ArrayList<String> getColors() {
+    public final ArrayList<String> getColors() {
         return colors;
     }
 
-    public void setColors(ArrayList<String> colors) {
+    public final void setColors(final ArrayList<String> colors) {
         this.colors = colors;
     }
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public final void setName(final String name) {
         this.name = name;
     }
 
-    public int getHasAttackedThisRound() {
+    public final int getHasAttackedThisRound() {
         return hasAttackedThisRound;
     }
 
-    public void setHasAttackedThisRound(int hasAttackedThisRound) {
+    public final void setHasAttackedThisRound(final int hasAttackedThisRound) {
         this.hasAttackedThisRound = hasAttackedThisRound;
     }
-
-    // TODO
 
     /**
      *
@@ -165,18 +152,6 @@ public class  Card implements Cloneable {
         clone.colors = new ArrayList<>();
         clone.colors.addAll(colors);
         return clone;
-    }
-
-    @Override
-    public String toString() {
-        return "Card{" +
-                "mana=" + mana +
-                ", attackDamage=" + attackDamage +
-                ", health=" + health +
-                ", description='" + description + '\'' +
-                ", colors=" + colors +
-                ", name='" + name + '\'' +
-                '}';
     }
 }
 

@@ -1,52 +1,24 @@
 package format;
 
 import cards.*;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import decks.Decks;
-import fileio.ActionsInput;
 import game.Game;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import static server.Server.games;
+import static helpme.MagicNumber.ENVIRONMENT_CARD;
 
-public class Format {
-
-    ArrayList<Card> chosenDeckOne;
-    ArrayList<Card> chosenDeckTwo;
-
-
-//    public void Format(ArrayList<Card> chosenDeckOne, ArrayList<Card> chosenDeckTwo, Decks playerOneDecks, Decks playerTwoDecks, ArrayList<Game> games, int gameNr) {
-//        // La fiecare game fac un pachet auxiliar si fac shuffle la el ca sa nu modific pachetul original
-//        // indexul deckului playerului 1 si 2
-//        int deckIndexPlayerOne = games.get(gameNr).getStartGame().getPlayerOneDeckIdx();
-//        int deckIndexPlayerTwo = games.get(gameNr).getStartGame().getPlayerTwoDeckIdx();
-//        // deckurile 1 si 2
-//        ArrayList<Card> deckOne = playerOneDecks.getDecks().get(deckIndexPlayerOne);
-//        ArrayList<Card> deckTwo = playerTwoDecks.getDecks().get(deckIndexPlayerTwo);
-//
-//        for(int i = 0 ; i < deckOne.size(); i++) {
-//            Card cardOne = new Card(deckOne.get(i));
-//            chosenDeckOne.add(cardOne);
-//        }
-//
-//        for(int i = 0 ; i < deckTwo.size(); i++) {
-//            Card cardTwo = new Card(deckTwo.get(i));
-//            chosenDeckOne.add(cardTwo);
-//        }
-//        Collections.shuffle(chosenDeckOne, new Random(games.get(gameNr).getStartGame().getShuffleSeed()));
-//        Collections.shuffle(chosenDeckTwo, new Random(games.get(gameNr).getStartGame().getShuffleSeed()));
-////        this.chosenDeckOne = chosenDeckOne;
-////        this.chosenDeckTwo = chosenDeckTwo;
-//    }
+public final class Format {
+    private ArrayList<Card> chosenDeckOne;
+    private ArrayList<Card> chosenDeckTwo;
 
     public ArrayList<Card> getChosenDeckOne() {
         return chosenDeckOne;
     }
 
-    public void setChosenDeckOne(ArrayList<Card> chosenDeckOne) {
+    public void setChosenDeckOne(final ArrayList<Card> chosenDeckOne) {
         this.chosenDeckOne = chosenDeckOne;
     }
 
@@ -54,7 +26,7 @@ public class Format {
         return chosenDeckTwo;
     }
 
-    public void setChosenDeckTwo(ArrayList<Card> chosenDeckTwo) {
+    public void setChosenDeckTwo(final ArrayList<Card> chosenDeckTwo) {
         this.chosenDeckTwo = chosenDeckTwo;
     }
 
@@ -65,7 +37,8 @@ public class Format {
      * @param gameNr
      * @return
      */
-    public static ArrayList<Card> copyDeckOne (Decks playerOneDecks,ArrayList<Game> games, int gameNr) {
+    public static ArrayList<Card> copyDeckOne(final Decks playerOneDecks,
+                                              final ArrayList<Game> games, final int gameNr) {
 
         // La fiecare game fac un pachet auxiliar si fac shuffle la el ca sa nu modific pachetul original
         ArrayList<Card> chosenDeckOne = new ArrayList<>();
@@ -74,7 +47,7 @@ public class Format {
         // deckurile 1 si 2
         ArrayList<Card> deckOne = playerOneDecks.getDecks().get(deckIndexPlayerOne);
 
-        for(int i = 0 ; i < deckOne.size(); i++) {
+        for (int i = 0; i < deckOne.size(); i++) {
             try {
                 Card cardOne = deckOne.get(i);
                 chosenDeckOne.add((Card) cardOne.clone());
@@ -82,7 +55,8 @@ public class Format {
                 e.printStackTrace();
             }
         }
-        Collections.shuffle(chosenDeckOne, new Random(games.get(gameNr).getStartGame().getShuffleSeed()));
+        Collections.shuffle(chosenDeckOne, new Random(games.get(gameNr).
+                getStartGame().getShuffleSeed()));
         return  chosenDeckOne;
     }
 
@@ -93,7 +67,8 @@ public class Format {
      * @param gameNr
      * @return
      */
-    public static ArrayList<Card> copyDeckTwo (Decks playerTwoDecks, ArrayList<Game> games, int gameNr) {
+    public static ArrayList<Card> copyDeckTwo(final Decks playerTwoDecks,
+                                              final ArrayList<Game> games, final int gameNr) {
 
         // La fiecare game fac un pachet auxiliar si fac shuffle la el ca sa nu modific pachetul original
         ArrayList<Card> chosenDeckTwo = new ArrayList<>();
@@ -103,7 +78,7 @@ public class Format {
         // deckurile 1 si 2
         ArrayList<Card> deckTwo = playerTwoDecks.getDecks().get(deckIndexPlayerTwo);
 
-        for(int i = 0 ; i < deckTwo.size(); i++) {
+        for (int i = 0; i < deckTwo.size(); i++) {
             try {
                 Card cardTwo = deckTwo.get(i);
                 chosenDeckTwo.add((Card) cardTwo.clone());
@@ -120,7 +95,7 @@ public class Format {
      * @param card
      * @return
      */
-    public static int checkCard (Card card) {
+    public static int checkCard(final Card card) {
         switch (card.getName()) {
             case "Disciple" :
                 return 1;
@@ -144,8 +119,9 @@ public class Format {
                 return 2;
             case "The Ripper" :
                 return 1;
+            default:
+                return -1;
         }
-        return -1;
     }
 
     /**
@@ -153,32 +129,33 @@ public class Format {
      * @param card
      * @return
      */
-    public static int checkCardRow (Card card) {
+    public static int checkCardRow(final Card card) {
         // 1 pt randul din fata 2 pt spate 3 daca e environement
         switch (card.getName()) {
-            case "Disciple" :  // da
+            case "Disciple":  // da
                 return 2;
-            case "Goliath" : // da
+            case "Goliath": // da
                 return 1;
-            case "Sentinel" : // da
+            case "Sentinel": // da
                 return 2;
-            case "Winterfell" : // da
-                return 3;
-            case "Berserker" :  // da
+            case "Winterfell": // da
+                return ENVIRONMENT_CARD;
+            case "Berserker":  // da
                 return 2;
-            case "The Cursed One" :  //da
+            case "The Cursed One":  //da
                 return 2;
-            case "Miraj" : // da
+            case "Miraj": // da
                 return 1;
-            case "Heart Hound" :  // da
-                return 3;
-            case "Warden" : // da
+            case "Heart Hound":  // da
+                return ENVIRONMENT_CARD;
+            case "Warden": // da
                 return 1;
-            case "Firestorm" : //da
-                return 3;
+            case "Firestorm": //da
+                return ENVIRONMENT_CARD;
             case "The Ripper": // da
                 return 1;
+            default:
+                return -1;
         }
-        return -1;
     }
 }

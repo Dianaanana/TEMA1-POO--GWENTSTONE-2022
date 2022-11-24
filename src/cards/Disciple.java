@@ -3,11 +3,12 @@ package cards;
 import actions.Abilities;
 import fileio.CardInput;
 
-import java.util.ArrayList;
-
-// randul din spate
-public class Disciple extends Minion implements Cloneable, Abilities {
-    public void ability(Minion teammate) {
+public final class Disciple extends Minion implements Cloneable, Abilities {
+    /**
+     *
+     * @param teammate
+     */
+    public void ability(final Minion teammate) {
         teammate.health += 2;
     }
 
@@ -15,9 +16,9 @@ public class Disciple extends Minion implements Cloneable, Abilities {
      *
      * @param cardInput
      */
-    public Disciple(CardInput cardInput) {
+    public Disciple(final CardInput cardInput) {
         super(cardInput);
-        super.ability = 1;
+        super.setAbility(1);
     }
 
     /**
