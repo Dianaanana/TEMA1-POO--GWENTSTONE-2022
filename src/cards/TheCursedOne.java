@@ -4,20 +4,18 @@ import actions.Abilities;
 import fileio.CardInput;
 
 // randul din spate
-public class TheCursedOne extends Minion implements Cloneable, Abilities {
+public final class TheCursedOne extends Minion implements Cloneable, Abilities {
     /**
-     *
      * @param enemy
      */
     public void ability(final Minion enemy) {
         int buff;
-        buff = enemy.attackDamage;
-        enemy.attackDamage = enemy.health;
-        enemy.health = buff;
+        buff = enemy.getAttackDamage();
+        enemy.setAttackDamage(enemy.getHealth());
+        enemy.setHealth(buff);
     }
 
     /**
-     *
      * @param cardInput
      */
     public TheCursedOne(final CardInput cardInput) {
@@ -26,7 +24,6 @@ public class TheCursedOne extends Minion implements Cloneable, Abilities {
     }
 
     /**
-     *
      * @return
      * @throws CloneNotSupportedException
      */

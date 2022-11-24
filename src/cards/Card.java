@@ -8,18 +8,17 @@ import fileio.CardInput;
 import java.util.ArrayList;
 
 public class Card implements Cloneable {
-    int mana;
-    int attackDamage;
-    int health;
-    String description;
-    ArrayList<String> colors;
-    String name;
-    int hasAttackedThisRound;
+    private int mana;
+    private int attackDamage;
+    private int health;
+    private String description;
+    private ArrayList<String> colors;
+    private String name;
+    private int hasAttackedThisRound;
 
     public static ObjectMapper mapper = new ObjectMapper();
 
     /**
-     *
      * @param cardInput
      */
     public Card(final CardInput cardInput) {
@@ -32,7 +31,6 @@ public class Card implements Cloneable {
     }
 
     /**
-     *
      * @param card
      */
     public Card(final Card card) {
@@ -45,13 +43,12 @@ public class Card implements Cloneable {
     }
 
     /**
-     *
      * @param card
      * @return
      */
     public static ObjectNode cardMapperEnvironement(final Card card) {
         ObjectNode cardMapped = mapper.createObjectNode();
-        cardMapped.put("mana", card.mana);
+        cardMapped.put("mana", card.getMana());
         cardMapped.put("description", card.description);
 
         ArrayNode arrayNode = mapper.createArrayNode();
@@ -62,16 +59,15 @@ public class Card implements Cloneable {
         cardMapped.put("name", card.name);
 
         return cardMapped;
-    };
+    }
 
     /**
-     *
      * @param card
      * @return
      */
     public static ObjectNode cardMapperMinion(final Card card) {
         ObjectNode cardMapped = mapper.createObjectNode();
-        cardMapped.put("mana", card.mana);
+        cardMapped.put("mana", card.getMana());
         cardMapped.put("attackDamage", card.attackDamage);
         cardMapped.put("health", card.health);
         cardMapped.put("description", card.description);
@@ -84,14 +80,14 @@ public class Card implements Cloneable {
         cardMapped.put("name", card.name);
 
         return cardMapped;
-    };
+    }
 
     public final int getMana() {
         return mana;
     }
 
     public final void setMana(final int mana) {
-        this.mana = mana;
+        this.setMana(mana);
     }
 
     public final String getDescription() {
@@ -143,7 +139,6 @@ public class Card implements Cloneable {
     }
 
     /**
-     *
      * @return
      * @throws CloneNotSupportedException
      */

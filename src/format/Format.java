@@ -31,7 +31,6 @@ public final class Format {
     }
 
     /**
-     *
      * @param playerOneDecks
      * @param games
      * @param gameNr
@@ -40,7 +39,6 @@ public final class Format {
     public static ArrayList<Card> copyDeckOne(final Decks playerOneDecks,
                                               final ArrayList<Game> games, final int gameNr) {
 
-        // La fiecare game fac un pachet auxiliar si fac shuffle la el ca sa nu modific pachetul original
         ArrayList<Card> chosenDeckOne = new ArrayList<>();
         // indexul deckului playerului 1 si 2
         int deckIndexPlayerOne = games.get(gameNr).getStartGame().getPlayerOneDeckIdx();
@@ -57,11 +55,10 @@ public final class Format {
         }
         Collections.shuffle(chosenDeckOne, new Random(games.get(gameNr).
                 getStartGame().getShuffleSeed()));
-        return  chosenDeckOne;
+        return chosenDeckOne;
     }
 
     /**
-     *
      * @param playerTwoDecks
      * @param games
      * @param gameNr
@@ -70,7 +67,6 @@ public final class Format {
     public static ArrayList<Card> copyDeckTwo(final Decks playerTwoDecks,
                                               final ArrayList<Game> games, final int gameNr) {
 
-        // La fiecare game fac un pachet auxiliar si fac shuffle la el ca sa nu modific pachetul original
         ArrayList<Card> chosenDeckTwo = new ArrayList<>();
 
         // indexul deckului playerului 1 si 2
@@ -86,38 +82,38 @@ public final class Format {
                 e.printStackTrace();
             }
         }
-        Collections.shuffle(chosenDeckTwo, new Random(games.get(gameNr).getStartGame().getShuffleSeed()));
+        Collections.shuffle(chosenDeckTwo,
+                            new Random(games.get(gameNr).getStartGame().getShuffleSeed()));
         return chosenDeckTwo;
     }
 
     /**
-     *
      * @param card
      * @return
      */
     public static int checkCard(final Card card) {
         switch (card.getName()) {
-            case "Disciple" :
+            case "Disciple":
                 return 1;
-            case "Goliath" :
+            case "Goliath":
                 return 1;
-            case "Sentinel" :
+            case "Sentinel":
                 return 1;
-            case "Winterfell" :
+            case "Winterfell":
                 return 2;
-            case "Berserker" :
+            case "Berserker":
                 return 1;
-            case "The Cursed One" :
+            case "The Cursed One":
                 return 1;
-            case "Miraj" :
+            case "Miraj":
                 return 1;
-            case "Heart Hound" :
+            case "Heart Hound":
                 return 2;
-            case "Warden" :
+            case "Warden":
                 return 1;
-            case "Firestorm" :
+            case "Firestorm":
                 return 2;
-            case "The Ripper" :
+            case "The Ripper":
                 return 1;
             default:
                 return -1;
@@ -125,7 +121,6 @@ public final class Format {
     }
 
     /**
-     *
      * @param card
      * @return
      */

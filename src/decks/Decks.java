@@ -1,4 +1,5 @@
 package decks;
+
 import cards.Card;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -8,24 +9,29 @@ import helpme.Helpme;
 
 import java.util.ArrayList;
 
-public class Decks {
-    int nrCardsInDeck;
-    int nrDecks;
-    ArrayList<ArrayList<Card>> decks = new ArrayList<>();
+public final class Decks {
+    private int nrCardsInDeck;
+    private int nrDecks;
+    private ArrayList<ArrayList<Card>> decks = new ArrayList<>();
 
-    static ObjectMapper mapper = new ObjectMapper();
+    private static ObjectMapper mapper = new ObjectMapper();
 
-    public Decks(DecksInput decksInput) {
+    /**
+     * @param decksInput
+     */
+    public Decks(final DecksInput decksInput) {
         this.nrCardsInDeck = decksInput.getNrCardsInDeck();
         this.nrDecks = decksInput.getNrDecks();
 
 
-        for(int i = 0; i < decksInput.getDecks().size(); i++) {
+        for (int i = 0; i < decksInput.getDecks().size(); i++) {
             ArrayList<Card> arrayList = new ArrayList<>();
             for (CardInput cardInput : decksInput.getDecks().get(i)) {
                 Card cardToAdd = Helpme.cardAssign(cardInput);
-                if(cardToAdd == null)
+                if (cardToAdd == null) {
                     continue;
+                }
+
 
                 arrayList.add(cardToAdd);
             }
@@ -35,16 +41,13 @@ public class Decks {
 
     }
 
-    // TODO SA VERIFIC CE CARTI SUNT IN PACHET
-
     /**
-     *
      * @param deck
      * @return
      */
-    static public ArrayNode decksMapper (ArrayList<Card> deck) {
+    public static ArrayNode decksMapper(final ArrayList<Card> deck) {
         ArrayNode cardsArray = mapper.createArrayNode();
-        for(Card card : deck) {
+        for (Card card : deck) {
             // VAD CE CARTI SUNT IN PACHET
             cardsArray.add(card.cardMapperMinion(card));
         }
@@ -55,7 +58,7 @@ public class Decks {
         return nrCardsInDeck;
     }
 
-    public void setNrCardsInDeck(int nrCardsInDeck) {
+    public void setNrCardsInDeck(final int nrCardsInDeck) {
         this.nrCardsInDeck = nrCardsInDeck;
     }
 
@@ -63,7 +66,7 @@ public class Decks {
         return nrDecks;
     }
 
-    public void setNrDecks(int nrDecks) {
+    public void setNrDecks(final int nrDecks) {
         this.nrDecks = nrDecks;
     }
 
@@ -71,7 +74,7 @@ public class Decks {
         return decks;
     }
 
-    public void setDecks(ArrayList<ArrayList<Card>> decks) {
+    public void setDecks(final ArrayList<ArrayList<Card>> decks) {
         this.decks = decks;
     }
 }

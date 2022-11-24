@@ -2,13 +2,17 @@ package cards;
 
 import fileio.CardInput;
 
-public class Kocioraw extends Hero implements Cloneable {
-    public Kocioraw(CardInput cardInput, int health) {
+public final class Kocioraw extends Hero implements Cloneable {
+    /**
+     *
+     * @param cardInput
+     * @param health
+     */
+    public Kocioraw(final CardInput cardInput, final int health) {
         super(cardInput, health);
     }
 
     /**
-     *
      * @return
      * @throws CloneNotSupportedException
      */
@@ -18,10 +22,9 @@ public class Kocioraw extends Hero implements Cloneable {
     }
 
     /**
-     *
      * @param row
      */
-    public void ability(Card[] row) {
+    public void ability(final Card[] row) {
         if (row == null) {
             return;
         }

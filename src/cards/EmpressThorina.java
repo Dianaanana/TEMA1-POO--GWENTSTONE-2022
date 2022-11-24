@@ -11,17 +11,15 @@ public final class EmpressThorina extends Hero implements Cloneable {
     }
 
     /**
-     *
      * @return
      * @throws CloneNotSupportedException
      */
-    public Object clone() throws CloneNotSupportedException  {
+    public Object clone() throws CloneNotSupportedException {
         EmpressThorina clone = (EmpressThorina) super.clone();
         return clone;
     }
 
     /**
-     *
      * @param row
      * @param rowIndex
      */

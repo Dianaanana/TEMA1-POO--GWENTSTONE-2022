@@ -6,8 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import checker.CheckerConstants;
-import decks.Decks;
-import fileio.DecksInput;
 import fileio.Input;
 import server.Server;
 
@@ -22,7 +20,6 @@ import static server.Server.*;
 
 /**
  * The entry point to this homework. It runs the checker that tests your implentation.
- *
  */
 
 public final class Main {
@@ -35,6 +32,7 @@ public final class Main {
     /**
      * DO NOT MODIFY MAIN METHOD
      * Call the checker
+     *
      * @param args from command line
      * @throws IOException in case of exceptions to reading / writing
      */
@@ -80,7 +78,7 @@ public final class Main {
         //TODO add here the entry point to your implementation
         Server.getInstance().resetServer();
         Server.getInstance().ServerReadInput(inputData);
-        Server.getInstance().ServerRun(playerOneDecks, playerTwoDecks, games, output);
+        Server.getInstance().ServerRun(getPlayerOneDecks(), getPlayerTwoDecks(), getGames(), output);
         //TODO end of implementation
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();

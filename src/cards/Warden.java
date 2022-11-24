@@ -4,7 +4,6 @@ import fileio.CardInput;
 
 public class Warden extends Minion implements Cloneable {
     /**
-     *
      * @param cardInput
      */
     public Warden(CardInput cardInput) {
@@ -13,7 +12,6 @@ public class Warden extends Minion implements Cloneable {
     }
 
     /**
-     *
      * @return
      * @throws CloneNotSupportedException
      */

@@ -8,7 +8,6 @@ public class Winterfall extends Card implements Cloneable {
     }
 
     /**
-     *
      * @return
      * @throws CloneNotSupportedException
      */

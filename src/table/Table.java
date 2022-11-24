@@ -2,21 +2,18 @@ package table;
 
 import cards.Card;
 import cards.Hero;
-import cards.Minion;
+
 
 import java.util.ArrayList;
 
-// clasa Tabla de joc va fi Singleton ptc va suferi multe modificari
-// si sa nu fie nevoie de instantieri multe si
-// degeaba
 public class Table {
-    private static Card[][] table ;
+    private static Card[][] table;
     private int manaPlayerOne;
     private int manaPlayerTwo;
 
     private ArrayList<Card> chosenDeckOne;
     private ArrayList<Card> chosenDeckTwo;
-    private  ArrayList<Card> handPlayerOne;
+    private ArrayList<Card> handPlayerOne;
     private ArrayList<Card> handPlayerTwo;
     private int turnCounter;
     private int playerOneWins;
@@ -28,17 +25,24 @@ public class Table {
     private Hero heroPlayerTwo;
     private static Table playTable = null;
 
-    private Table() {}
+    /**
+     *
+     */
+    private Table() {
+    }
 
+    /**
+     *
+     * @return
+     */
     public static Table getPlayTable() {
-        if(playTable == null) {
+        if (playTable == null) {
             playTable = new Table();
         }
         return playTable;
     }
 
     /**
-     *
      * @param manaPlayerOne
      * @param manaPlayerTwo
      * @param chosenDeckOne
@@ -51,7 +55,11 @@ public class Table {
      * @param heroPlayerTwo
      * @param countCardsOnRows
      */
-    public Table(int manaPlayerOne, int manaPlayerTwo, ArrayList<Card> chosenDeckOne, ArrayList<Card> chosenDeckTwo, ArrayList<Card> handPlayerOne, ArrayList<Card> handPlayerTwo, int turnCounter, int startingPlayer, Hero heroPlayerOne, Hero heroPlayerTwo, ArrayList<Integer> countCardsOnRows) {
+    public Table(final int manaPlayerOne, final int manaPlayerTwo,
+                 final ArrayList<Card> chosenDeckOne, final ArrayList<Card> chosenDeckTwo,
+                 final ArrayList<Card> handPlayerOne, final ArrayList<Card> handPlayerTwo,
+                 final int turnCounter, final int startingPlayer, final Hero heroPlayerOne,
+                 final Hero heroPlayerTwo, final ArrayList<Integer> countCardsOnRows) {
         Table.table = new Card[4][5];
         this.manaPlayerOne = manaPlayerOne;
         this.manaPlayerTwo = manaPlayerTwo;
@@ -67,131 +75,259 @@ public class Table {
     }
 
 
+    /**
+     *
+     * @return
+     */
     public Card[][] getTable() {
         return table;
     }
 
+    /**
+     *
+     * @param table
+     */
     public void setTable(Card[][] table) {
         this.table = table;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getManaPlayerOne() {
         return manaPlayerOne;
     }
 
-    public void setManaPlayerOne(int manaPlayerOne) {
+    /**
+     *
+     * @param manaPlayerOne
+     */
+    public void setManaPlayerOne(final int manaPlayerOne) {
         this.manaPlayerOne = manaPlayerOne;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getManaPlayerTwo() {
         return manaPlayerTwo;
     }
 
-    public void setManaPlayerTwo(int manaPlayerTwo) {
+    /**
+     *
+     * @param manaPlayerTwo
+     */
+    public void setManaPlayerTwo(final int manaPlayerTwo) {
         this.manaPlayerTwo = manaPlayerTwo;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getStartingPlayer() {
         return startingPlayer;
     }
 
-    public void setStartingPlayer(int startingPlayer) {
+    /**
+     *
+     * @param startingPlayer
+     */
+    public void setStartingPlayer(final int startingPlayer) {
         this.startingPlayer = startingPlayer;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Card> getChosenDeckOne() {
         return chosenDeckOne;
     }
 
-    public void setChosenDeckOne(ArrayList<Card> chosenDeckOne) {
+    /**
+     *
+     * @param chosenDeckOne
+     */
+    public void setChosenDeckOne(final ArrayList<Card> chosenDeckOne) {
         this.chosenDeckOne = chosenDeckOne;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Card> getChosenDeckTwo() {
         return chosenDeckTwo;
     }
 
-    public void setchosenDeckTwo(ArrayList<Card> getChosenDeckTwo) {
+    /**
+     *
+     * @param getChosenDeckTwo
+     */
+    public void setchosenDeckTwo(final ArrayList<Card> getChosenDeckTwo) {
         this.chosenDeckTwo = getChosenDeckTwo;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTurnCounter() {
         return turnCounter;
     }
 
-    public void setTurnCounter(int turnCounter) {
+    /**
+     *
+     * @param turnCounter
+     */
+    public void setTurnCounter(final int turnCounter) {
         this.turnCounter = turnCounter;
     }
 
+    /**
+     *
+     * @return
+     */
     public Hero getHeroPlayerOne() {
         return heroPlayerOne;
     }
 
-    public void setHeroPlayerOne(Hero heroPlayerOne) {
+    /**
+     *
+     * @param heroPlayerOne
+     */
+    public void setHeroPlayerOne(final Hero heroPlayerOne) {
         this.heroPlayerOne = heroPlayerOne;
     }
 
+    /**
+     *
+     * @return
+     */
     public Hero getHeroPLayerTwo() {
         return heroPlayerTwo;
     }
 
+    /**
+     *
+     * @return
+     */
     public Hero getHeroPlayerTwo() {
         return heroPlayerTwo;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPlayerOneWins() {
         return playerOneWins;
     }
 
-    public void setPlayerOneWins(int playerOneWins) {
+    /**
+     *
+     * @param playerOneWins
+     */
+    public void setPlayerOneWins(final int playerOneWins) {
         this.playerOneWins = playerOneWins;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPlayerTwoWins() {
         return playerTwoWins;
     }
 
-    public void setPlayerTwoWins(int playerTwoWins) {
+    /**
+     *
+     * @param playerTwoWins
+     */
+    public void setPlayerTwoWins(final int playerTwoWins) {
         this.playerTwoWins = playerTwoWins;
     }
 
-    public void setHeroPlayerTwo(Hero heroPlayerTwo) {
+    /**
+     *
+     * @param heroPlayerTwo
+     */
+    public void setHeroPlayerTwo(final Hero heroPlayerTwo) {
         this.heroPlayerTwo = heroPlayerTwo;
     }
 
-    public void setHeroPLayerTwo(Hero heroPLayerTwo) {
+    /**
+     *
+     * @param heroPLayerTwo
+     */
+    public void setHeroPLayerTwo(final Hero heroPLayerTwo) {
         this.heroPlayerTwo = heroPLayerTwo;
     }
 
-    public static void setPlayTable(Table playTable) {
+    /**
+     *
+     * @param playTable
+     */
+    public static void setPlayTable(final Table playTable) {
         Table.playTable = playTable;
     }
 
-    public void setChosenDeckTwo(ArrayList<Card> chosenDeckTwo) {
+    /**
+     *
+     * @param chosenDeckTwo
+     */
+    public void setChosenDeckTwo(final ArrayList<Card> chosenDeckTwo) {
         this.chosenDeckTwo = chosenDeckTwo;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Card> getHandPlayerOne() {
         return handPlayerOne;
     }
 
-    public void setHandPlayerOne(ArrayList<Card> handPlayerOne) {
+    /**
+     *
+     * @param handPlayerOne
+     */
+    public void setHandPlayerOne(final ArrayList<Card> handPlayerOne) {
         this.handPlayerOne = handPlayerOne;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Card> getHandPlayerTwo() {
         return handPlayerTwo;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Integer> getCountCardsOnRows() {
         return countCardsOnRows;
     }
 
-    public void setCountCardsOnRows(ArrayList<Integer> countCardsOnRows) {
+    /**
+     *
+     * @param countCardsOnRows
+     */
+    public void setCountCardsOnRows(final ArrayList<Integer> countCardsOnRows) {
         this.countCardsOnRows = countCardsOnRows;
     }
 
-    public void setHandPlayerTwo(ArrayList<Card> handPlayerTwo) {
+    /**
+     *
+     * @param handPlayerTwo
+     */
+    public void setHandPlayerTwo(final ArrayList<Card> handPlayerTwo) {
         this.handPlayerTwo = handPlayerTwo;
     }
 }

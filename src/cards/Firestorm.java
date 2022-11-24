@@ -2,17 +2,20 @@ package cards;
 
 import fileio.CardInput;
 
-public class Firestorm extends Card implements Cloneable {
-    public Firestorm(CardInput cardInput) {
+public final class Firestorm extends Card implements Cloneable {
+    /**
+     *
+     * @param cardInput
+     */
+    public Firestorm(final CardInput cardInput) {
         super(cardInput);
     }
 
     /**
-     *
      * @return
      * @throws CloneNotSupportedException
      */
-    public Object clone() throws CloneNotSupportedException  {
+    public Object clone() throws CloneNotSupportedException {
         Firestorm clone = (Firestorm) super.clone();
         return clone;
     }

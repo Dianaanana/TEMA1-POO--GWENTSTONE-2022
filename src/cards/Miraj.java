@@ -4,29 +4,26 @@ import actions.Abilities;
 import fileio.CardInput;
 
 // randul din fata
-public class Miraj extends Minion implements Cloneable, Abilities {
+public final class Miraj extends Minion implements Cloneable, Abilities {
     /**
-     *
      * @param enemy
      */
-    public void ability(Minion enemy) {
+    public void ability(final Minion enemy) {
         int healthBuff;
-        healthBuff = enemy.health;
-        enemy.health = this.health;
-        this.health = healthBuff;
+        healthBuff = enemy.getHealth();
+        enemy.setHealth(this.getHealth());
+        this.setHealth(healthBuff);
     }
 
     /**
-     *
      * @param cardInput
      */
-    public Miraj(CardInput cardInput) {
+    public Miraj(final CardInput cardInput) {
         super(cardInput);
         super.setAbility(1);
     }
 
     /**
-     *
      * @return
      * @throws CloneNotSupportedException
      */

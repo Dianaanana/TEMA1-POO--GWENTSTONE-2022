@@ -13,8 +13,8 @@ public class Minion extends Card implements Cloneable {
     public Minion(final Card card, final int health, final int attackDamage,
                   final int row, final int frozen, final int ability, final int tank) {
         super(card);
-        this.health = health;
-        this.attackDamage = attackDamage;
+        this.setHealth(health);
+        this.setAttackDamage(attackDamage);
         this.row = row;
         this.frozen = frozen;
         this.ability = ability;
@@ -23,8 +23,8 @@ public class Minion extends Card implements Cloneable {
 
     public Minion(final CardInput cardInput) {
         super(cardInput);
-        this.health =  cardInput.getHealth();
-        this.attackDamage = cardInput.getAttackDamage();
+        this.setHealth(cardInput.getHealth());
+        this.setAttackDamage(cardInput.getAttackDamage());
     }
 
     public final int getRow() {
@@ -60,29 +60,27 @@ public class Minion extends Card implements Cloneable {
     }
 
     /**
-     *
      * @param minion
      * @return
      */
     public ObjectNode cardMapper(final Minion minion) {
         ObjectNode minion1 = mapper.createObjectNode();
-        minion1.put("mana", minion.mana);
-        minion1.put("attackDamage", minion.attackDamage);
-        minion1.put("health", minion.health);
-        minion1.put("description", minion.description);
+        minion1.put("mana", minion.getMana());
+        minion1.put("attackDamage", minion.getAttackDamage());
+        minion1.put("health", minion.getHealth());
+        minion1.put("description", minion.getDescription());
 
         ArrayNode arrayNode = mapper.createArrayNode();
-        for (String color : minion.colors) {
+        for (String color : minion.getColors()) {
             arrayNode.add(color);
         }
         minion1.set("colors", arrayNode);
-        minion1.put("name", minion.name);
+        minion1.put("name", minion.getName());
 
         return minion1;
     }
 
     /**
-     *
      * @return
      * @throws CloneNotSupportedException
      */

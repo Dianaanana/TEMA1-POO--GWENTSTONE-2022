@@ -5,15 +5,13 @@ import fileio.CardInput;
 
 public final class Disciple extends Minion implements Cloneable, Abilities {
     /**
-     *
      * @param teammate
      */
     public void ability(final Minion teammate) {
-        teammate.health += 2;
+        teammate.setHealth(teammate.getHealth() + 2);
     }
 
     /**
-     *
      * @param cardInput
      */
     public Disciple(final CardInput cardInput) {
@@ -22,11 +20,10 @@ public final class Disciple extends Minion implements Cloneable, Abilities {
     }
 
     /**
-     *
      * @return
      * @throws CloneNotSupportedException
      */
-    public Object clone() throws CloneNotSupportedException  {
+    public Object clone() throws CloneNotSupportedException {
         Disciple clone = (Disciple) super.clone();
         return clone;
     }

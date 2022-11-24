@@ -1,10 +1,8 @@
 package game;
 
 import actions.Actions;
-import cards.Card;
 import cards.Hero;
 import fileio.ActionsInput;
-import fileio.GameInput;
 import fileio.StartGameInput;
 import helpme.Helpme;
 
@@ -21,28 +19,27 @@ public class Game {
 //    }
 
     /**
-     *
      * @param startGameInput
      * @param actionsInputs
      */
     public Game(StartGameInput startGameInput, ArrayList<ActionsInput> actionsInputs) {
         StartGame startGameAux = new StartGame(startGameInput);
-        startGameAux.playerOneDeckIdx = startGameInput.getPlayerOneDeckIdx();
-        startGameAux.playerTwoDeckIdx = startGameInput.getPlayerTwoDeckIdx();
-        startGameAux.shuffleSeed = startGameInput.getShuffleSeed();
-        startGameAux.startingPlayer = startGameInput.getStartingPlayer();
+        startGameAux.setPlayerOneDeckIdx(startGameInput.getPlayerOneDeckIdx());
+        startGameAux.setPlayerTwoDeckIdx(startGameInput.getPlayerTwoDeckIdx());
+        startGameAux.setShuffleSeed(startGameInput.getShuffleSeed());
+        startGameAux.setStartingPlayer(startGameInput.getStartingPlayer());
 
         Hero heroOne = Helpme.heroAssign(startGameInput.getPlayerOneHero());
         //System.out.println(heroOne.getHealth());
-        startGameAux.playerOneHero = heroOne;
+        startGameAux.setPlayerOneHero(heroOne);
 
         Hero heroTwo = Helpme.heroAssign(startGameInput.getPlayerTwoHero());
-        startGameAux.playerTwoHero = heroTwo;
+        startGameAux.setPlayerTwoHero(heroTwo);
 
         this.startGame = startGameAux;
 
         ArrayList<Actions> arrayListActions = new ArrayList<>();
-        for(ActionsInput actionsInput : actionsInputs) {
+        for (ActionsInput actionsInput : actionsInputs) {
             Actions actions1 = new Actions(actionsInput);
             arrayListActions.add(actions1);
         }

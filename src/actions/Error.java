@@ -6,8 +6,13 @@ import fileio.Coordinates;
 
 import static cards.Card.mapper;
 
-public class Error {
-    public static void putErrorManaHero(Actions action, ArrayNode outputFinal) {
+public final class Error {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void putErrorManaHero(final Actions action, final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         output.put("affectedRow", action.getAffectedRow());
@@ -16,7 +21,15 @@ public class Error {
         outputFinal.add(output);
     }
 
-    public static void putErrorMana(Actions action, ArrayNode outputFinal, int cardIndex) {
+
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     * @param cardIndex
+     */
+    public static void putErrorMana(final Actions action, final ArrayNode outputFinal,
+                                    final int cardIndex) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         String outputError = "Not enough mana to place card on table.";
@@ -25,7 +38,14 @@ public class Error {
         outputFinal.add(output);
     }
 
-    public static void putErrorEnvironement(Actions action, ArrayNode outputFinal, int cardIndex) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     * @param cardIndex
+     */
+    public static void putErrorEnvironement(final Actions action, final ArrayNode outputFinal,
+                                            final int cardIndex) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         String outputError = "Cannot place environment card on table.";
@@ -34,7 +54,14 @@ public class Error {
         outputFinal.add(output);
     }
 
-    public static void putErrorFullRow (Actions action, ArrayNode outputFinal, int cardIndex) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     * @param cardIndex
+     */
+    public static void putErrorFullRow(final Actions action, final ArrayNode outputFinal,
+                                       final int cardIndex) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         String outputError = "Cannot place card on table since row is full.";
@@ -43,7 +70,13 @@ public class Error {
         outputFinal.add(output);
     }
 
-    public static void putErrorNotAttackingEnemy(Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void putErrorNotAttackingEnemy(final Actions action,
+                                                 final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         output.set("cardAttacker", Coordinates.mapperCoordinates(action.getCardAttacker()));
@@ -53,7 +86,12 @@ public class Error {
         outputFinal.add(output);
     }
 
-    public static void putErrorAlreadyAttacked(Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void putErrorAlreadyAttacked(final Actions action, final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         if (action.getCardAttacker() != null) {
@@ -67,7 +105,12 @@ public class Error {
         outputFinal.add(output);
     }
 
-    public static void putErrorAttackerFrozen(Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void putErrorAttackerFrozen(final Actions action, final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         if (action.getCardAttacker() != null) {
@@ -81,7 +124,12 @@ public class Error {
         outputFinal.add(output);
     }
 
-    public static void putErrorAttackedNotTank(Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void putErrorAttackedNotTank(final Actions action, final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         if (action.getCardAttacker() != null) {
@@ -95,7 +143,12 @@ public class Error {
         outputFinal.add(output);
     }
 
-    public static void putErrorAllyCard(Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void putErrorAllyCard(final Actions action, final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         output.set("cardAttacker", Coordinates.mapperCoordinates(action.getCardAttacker()));
@@ -105,7 +158,13 @@ public class Error {
         outputFinal.add(output);
     }
 
-    public static void putErrorHeroAlreadyAttacked(Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void putErrorHeroAlreadyAttacked(final Actions action,
+                                                   final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         output.put("affectedRow", action.getAffectedRow());
@@ -114,7 +173,13 @@ public class Error {
         outputFinal.add(output);
     }
 
-    public static void putErrorHeroNotAttackingEnemy(Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void putErrorHeroNotAttackingEnemy(final Actions action,
+                                                     final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         output.put("affectedRow", action.getAffectedRow());
@@ -123,7 +188,13 @@ public class Error {
         outputFinal.add(output);
     }
 
-    public static void putErrorHeroNotAttackingAlly(Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void putErrorHeroNotAttackingAlly(final Actions action,
+                                                    final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         output.put("affectedRow", action.getAffectedRow());

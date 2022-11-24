@@ -6,39 +6,50 @@ import cards.Hero;
 import cards.Minion;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import decks.Decks;
 import fileio.ActionsInput;
 import format.Format;
 import game.StartGame;
-import helpme.Helpme;
 import table.Table;
 
 import java.util.ArrayList;
 
 import static cards.Card.mapper;
 
-public class Debug extends Actions{
+public final class Debug extends Actions {
+    /**
+     *
+     * @param actionsInput
+     */
     public Debug(ActionsInput actionsInput) {
         super(actionsInput);
     }
 
-
-        public static void getCardsInHandPlayerOne (Actions action, ArrayNode outputFinal, ObjectNode output, ArrayNode hand) {
-        if(Table.getPlayTable().getHandPlayerOne() == null) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     * @param output
+     * @param hand
+     */
+    public static void getCardsInHandPlayerOne(final Actions action, final ArrayNode outputFinal,
+                                               final ObjectNode output, final ArrayNode hand) {
+        if (Table.getPlayTable().getHandPlayerOne() == null) {
             ArrayList<Card> handOne = new ArrayList<>();
             Table.getPlayTable().setHandPlayerOne(handOne);
         } else {
 
-            for(int i = 0; i < Table.getPlayTable().getHandPlayerOne().size(); i++) {
+            for (int i = 0; i < Table.getPlayTable().getHandPlayerOne().size(); i++) {
                 int check = Format.checkCard(Table.getPlayTable().getHandPlayerOne().get(i));
 
-                if(check == 1) {
+                if (check == 1) {
                     ObjectNode minionInHand = mapper.createObjectNode();
-                    minionInHand = Environement.cardMapperMinion(Table.getPlayTable().getHandPlayerOne().get(i));
+                    minionInHand = Environement.cardMapperMinion
+                                   (Table.getPlayTable().getHandPlayerOne().get(i));
                     hand.add(minionInHand);
                 } else {
                     ObjectNode minionInHand = mapper.createObjectNode();
-                    minionInHand = Environement.cardMapperEnvironement(Table.getPlayTable().getHandPlayerOne().get(i));
+                    minionInHand = Environement.cardMapperEnvironement
+                                   (Table.getPlayTable().getHandPlayerOne().get(i));
                     hand.add(minionInHand);
                 }
             }
@@ -47,24 +58,28 @@ public class Debug extends Actions{
     }
 
 
-    // TODO modularizare
-    public static void getCardsInHand (Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void getCardsInHand(final Actions action, final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         output.put("playerIdx", action.getPlayerIdx());
 
         ArrayNode hand = mapper.createArrayNode();
-        if(action.getPlayerIdx() == 1) {
-            getCardsInHandPlayerOne(action,outputFinal,output,hand);
+        if (action.getPlayerIdx() == 1) {
+            getCardsInHandPlayerOne(action, outputFinal, output, hand);
         } else {
-            if(Table.getPlayTable().getHandPlayerTwo() == null) {
+            if (Table.getPlayTable().getHandPlayerTwo() == null) {
                 ArrayList<Card> handTwo = new ArrayList<>();
                 Table.getPlayTable().setHandPlayerTwo(handTwo);
             } else {
                 // TODO NU DECKMAPPERCURSED
-                for(int i = 0; i < Table.getPlayTable().getHandPlayerTwo().size(); i++) {
+                for (int i = 0; i < Table.getPlayTable().getHandPlayerTwo().size(); i++) {
                     int check = Format.checkCard(Table.getPlayTable().getHandPlayerTwo().get(i));
-                    if(check == 1) {
+                    if (check == 1) {
                         ObjectNode minionInHand = mapper.createObjectNode();
                         minionInHand = Minion.cardMapperMinion(Table.getPlayTable().getHandPlayerTwo().get(i));
                         hand.add(minionInHand);
@@ -73,27 +88,32 @@ public class Debug extends Actions{
                         minionInHand = Card.cardMapperEnvironement(Table.getPlayTable().getHandPlayerTwo().get(i));
                         hand.add(minionInHand);
                     }
-                }            }
+                }
+            }
             output.set("output", hand);
         }
         outputFinal.add(output);
     }
 
-    // TODO Done
-    public static void getPlayerDeck (Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void getPlayerDeck(final Actions action, final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         output.put("playerIdx", action.getPlayerIdx());
 
         ArrayNode deckOut = mapper.createArrayNode();
-        if(action.getPlayerIdx() == 1) {
-            if(Table.getPlayTable().getChosenDeckOne() == null) {
+        if (action.getPlayerIdx() == 1) {
+            if (Table.getPlayTable().getChosenDeckOne() == null) {
                 ArrayList<Card> deckOne = new ArrayList<>();
                 Table.getPlayTable().setChosenDeckOne(deckOne);
             } else {
-                for(int i = 0; i < Table.getPlayTable().getChosenDeckOne().size(); i ++) {
+                for (int i = 0; i < Table.getPlayTable().getChosenDeckOne().size(); i++) {
                     int check = Format.checkCard(Table.getPlayTable().getChosenDeckOne().get(i));
-                    if(check == 1) {
+                    if (check == 1) {
 //                        System.out.println("este check = 1");
                         ObjectNode cardInDeck = mapper.createObjectNode();
                         cardInDeck = Minion.cardMapperMinion(Table.getPlayTable().getChosenDeckOne().get(i));
@@ -107,13 +127,13 @@ public class Debug extends Actions{
             }
             output.set("output", deckOut);
         } else {
-            if(Table.getPlayTable().getChosenDeckTwo() == null) {
+            if (Table.getPlayTable().getChosenDeckTwo() == null) {
                 ArrayList<Card> deckTwo = new ArrayList<>();
                 Table.getPlayTable().setChosenDeckTwo(deckTwo);
             } else {
-                for(int i = 0; i < Table.getPlayTable().getChosenDeckTwo().size(); i ++) {
+                for (int i = 0; i < Table.getPlayTable().getChosenDeckTwo().size(); i++) {
                     int check = Format.checkCard(Table.getPlayTable().getChosenDeckTwo().get(i));
-                    if(check == 1) {
+                    if (check == 1) {
                         ObjectNode cardInDeck = mapper.createObjectNode();
                         cardInDeck = Minion.cardMapperMinion(Table.getPlayTable().getChosenDeckTwo().get(i));
                         deckOut.add(cardInDeck);
@@ -129,21 +149,25 @@ public class Debug extends Actions{
         outputFinal.add(output);
     }
 
-    // TODO Done
-    public static void getCardsOnTable (Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void getCardsOnTable(final Actions action, final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
 
         ArrayNode table = mapper.createArrayNode();
-        if(Table.getPlayTable().getTable() == null) {
+        if (Table.getPlayTable().getTable() == null) {
             Card[][] tableEmpty = new Card[4][5];
             Table.getPlayTable().setTable(tableEmpty);
         } else {
 //            table = Decks.decksMapper(Table.getPlayTable().getTable());
             ArrayNode cardsOnTable = mapper.createArrayNode();
-            for(int i = 0; i < 4; i ++) {
+            for (int i = 0; i < 4; i++) {
                 ArrayNode cardsOnRow = mapper.createArrayNode();
-                for(int j = 0; j < 5; j++) {
+                for (int j = 0; j < 5; j++) {
                     if (Table.getPlayTable().getTable()[i][j] == null) {
                         continue;
                     } else {
@@ -158,14 +182,19 @@ public class Debug extends Actions{
         outputFinal.add(output);
     }
 
-    // TODO Done
-    public static void getPlayerTurn (Actions action, ArrayNode outputFinal, StartGame startGame) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     * @param startGame
+     */
+    public static void getPlayerTurn(final Actions action, final ArrayNode outputFinal, final StartGame startGame) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
 
         int turnCounter = Table.getPlayTable().getTurnCounter();
         int playerIndex = startGame.getStartingPlayer();
-        if(turnCounter % 2 == 0 && playerIndex == 1 || turnCounter % 2 == 1 && playerIndex == 2) {
+        if (turnCounter % 2 == 0 && playerIndex == 1 || turnCounter % 2 == 1 && playerIndex == 2) {
             output.put("output", 1);
         } else {
             output.put("output", 2);
@@ -174,14 +203,18 @@ public class Debug extends Actions{
         outputFinal.add(output);
     }
 
-    // TODO DONE
-    public static void getPlayerHero (Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void getPlayerHero(final Actions action, final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         output.put("playerIdx", action.getPlayerIdx());
 
         ObjectNode hero = mapper.createObjectNode();
-        if(action.getPlayerIdx() == 1) {
+        if (action.getPlayerIdx() == 1) {
             hero = Hero.cardMapper(Table.getPlayTable().getHeroPlayerOne());
         } else {
             hero = Hero.cardMapper(Table.getPlayTable().getHeroPlayerTwo());
@@ -192,8 +225,12 @@ public class Debug extends Actions{
 
     }
 
-    // TODO
-    public static void getCardAtPosition (Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void getCardAtPosition(final Actions action, final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         output.put("x", action.getX());
@@ -212,12 +249,16 @@ public class Debug extends Actions{
         outputFinal.add(output);
     }
 
-    // TODO
-    public static void getPlayerMana (Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void getPlayerMana(final Actions action, final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
         output.put("playerIdx", action.getPlayerIdx());
-        if(action.getPlayerIdx() == 1) {
+        if (action.getPlayerIdx() == 1) {
             output.put("output", Table.getPlayTable().getManaPlayerOne());
         } else {
             output.put("output", Table.getPlayTable().getManaPlayerTwo());
@@ -225,8 +266,12 @@ public class Debug extends Actions{
         outputFinal.add(output);
     }
 
-    // TODO
-    public static void getEnvironmentCardsInHand (Actions action, ArrayNode outputFinal) {
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void getEnvironmentCardsInHand(final Actions action, final ArrayNode outputFinal) {
         int playerIdx = action.getPlayerIdx();
 
         ObjectNode output = mapper.createObjectNode();
@@ -253,18 +298,23 @@ public class Debug extends Actions{
         output.set("output", cardsNode);
         outputFinal.add(output);
     }
-    // TODO
-    public static void getFrozenCardsOnTable (Actions action, ArrayNode outputFinal) {
+
+    /**
+     *
+     * @param action
+     * @param outputFinal
+     */
+    public static void getFrozenCardsOnTable(final Actions action, final ArrayNode outputFinal) {
         ObjectNode output = mapper.createObjectNode();
         output.put("command", action.getCommand());
 
-        if(Table.getPlayTable().getTable() == null) {
+        if (Table.getPlayTable().getTable() == null) {
             Card[][] tableEmpty = new Card[4][5];
             Table.getPlayTable().setTable(tableEmpty);
         } else {
             ArrayNode cardsOnTable = mapper.createArrayNode();
-            for(int i = 0; i < 4; i ++) {
-                for(int j = 0; j < 5; j++) {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 5; j++) {
                     if (Table.getPlayTable().getTable()[i][j] == null) {
                         continue;
                     }

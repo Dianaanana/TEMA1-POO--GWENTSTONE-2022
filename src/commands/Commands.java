@@ -23,7 +23,6 @@ public final class Commands {
     }
 
     /**
-     *
      * @param input
      * @return
      */
@@ -35,7 +34,6 @@ public final class Commands {
     }
 
     /**
-     *
      * @param hero
      * @return
      */

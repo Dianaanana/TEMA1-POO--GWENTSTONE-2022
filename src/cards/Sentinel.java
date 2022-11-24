@@ -3,13 +3,16 @@ package cards;
 import fileio.CardInput;
 
 // randul din spate
-public class Sentinel extends Minion implements Cloneable {
+public final class Sentinel extends Minion implements Cloneable {
+    /**
+     *
+     * @param cardInput
+     */
     public Sentinel(final CardInput cardInput) {
         super(cardInput);
     }
 
     /**
-     *
      * @return
      * @throws CloneNotSupportedException
      */

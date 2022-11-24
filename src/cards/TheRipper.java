@@ -5,19 +5,17 @@ import fileio.CardInput;
 
 public final class TheRipper extends Minion implements Cloneable, Abilities {
     /**
-     *
      * @param enemy
      */
     public void ability(final Minion enemy) {
-        if (enemy.attackDamage < 2) {
-            enemy.attackDamage = 0;
+        if (enemy.getAttackDamage() < 2) {
+            enemy.setAttackDamage(0);
         } else {
-            enemy.attackDamage -= 2;
+            enemy.setAttackDamage(enemy.getAttackDamage() - 2);
         }
     }
 
     /**
-     *
      * @param cardInput
      */
     public TheRipper(final CardInput cardInput) {
@@ -26,7 +24,6 @@ public final class TheRipper extends Minion implements Cloneable, Abilities {
     }
 
     /**
-     *
      * @param card
      * @param health
      * @param attackDamage
@@ -41,7 +38,6 @@ public final class TheRipper extends Minion implements Cloneable, Abilities {
     }
 
     /**
-     *
      * @return
      * @throws CloneNotSupportedException
      */

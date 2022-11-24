@@ -2,13 +2,17 @@ package cards;
 
 import fileio.CardInput;
 
-public class LordRoyce extends Hero implements Cloneable {
-    public LordRoyce(CardInput cardInput, int health) {
+public final class LordRoyce extends Hero implements Cloneable {
+    /**
+     *
+     * @param cardInput
+     * @param health
+     */
+    public LordRoyce(final CardInput cardInput, final int health) {
         super(cardInput, health);
     }
 
     /**
-     *
      * @return
      * @throws CloneNotSupportedException
      */
@@ -18,10 +22,9 @@ public class LordRoyce extends Hero implements Cloneable {
     }
 
     /**
-     *
      * @param row
      */
-    public void ability(Card[] row) {
+    public void ability(final Card[] row) {
         if (row == null) {
             return;
         }

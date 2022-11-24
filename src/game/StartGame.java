@@ -1,24 +1,21 @@
 package game;
 
-import cards.Card;
 import cards.Hero;
-import fileio.CardInput;
 import fileio.StartGameInput;
 import helpme.Helpme;
 
-public class StartGame {
-    int playerOneDeckIdx;
-    int playerTwoDeckIdx;
-    int shuffleSeed;
-    Hero playerOneHero;
-    Hero playerTwoHero;
-    int startingPlayer;
+public final class StartGame {
+    private int playerOneDeckIdx;
+    private int playerTwoDeckIdx;
+    private int shuffleSeed;
+    private Hero playerOneHero;
+    private Hero playerTwoHero;
+    private int startingPlayer;
 
     /**
-     *
      * @param startGameInput
      */
-    public StartGame(StartGameInput startGameInput) {
+    public StartGame(final StartGameInput startGameInput) {
         this.playerOneDeckIdx = startGameInput.getPlayerOneDeckIdx();
         this.playerTwoDeckIdx = startGameInput.getPlayerTwoDeckIdx();
         this.shuffleSeed = startGameInput.getShuffleSeed();
@@ -32,7 +29,7 @@ public class StartGame {
         return playerOneDeckIdx;
     }
 
-    public void setPlayerOneDeckIdx(int playerOneDeckIdx) {
+    public void setPlayerOneDeckIdx(final int playerOneDeckIdx) {
         this.playerOneDeckIdx = playerOneDeckIdx;
     }
 
@@ -40,7 +37,7 @@ public class StartGame {
         return playerTwoDeckIdx;
     }
 
-    public void setPlayerTwoDeckIdx(int playerTwoDeckIdx) {
+    public void setPlayerTwoDeckIdx(final int playerTwoDeckIdx) {
         this.playerTwoDeckIdx = playerTwoDeckIdx;
     }
 
@@ -48,7 +45,7 @@ public class StartGame {
         return shuffleSeed;
     }
 
-    public void setShuffleSeed(int shuffleSeed) {
+    public void setShuffleSeed(final int shuffleSeed) {
         this.shuffleSeed = shuffleSeed;
     }
 
@@ -56,7 +53,7 @@ public class StartGame {
         return playerOneHero;
     }
 
-    public void setPlayerOneHero(Hero playerOneHero) {
+    public void setPlayerOneHero(final Hero playerOneHero) {
         this.playerOneHero = playerOneHero;
     }
 
@@ -64,7 +61,7 @@ public class StartGame {
         return playerTwoHero;
     }
 
-    public void setPlayerTwoHero(Hero playerTwoHero) {
+    public void setPlayerTwoHero(final Hero playerTwoHero) {
         this.playerTwoHero = playerTwoHero;
     }
 
@@ -72,7 +69,7 @@ public class StartGame {
         return startingPlayer;
     }
 
-    public void setStartingPlayer(int startingPlayer) {
+    public void setStartingPlayer(final int startingPlayer) {
         this.startingPlayer = startingPlayer;
     }
 }

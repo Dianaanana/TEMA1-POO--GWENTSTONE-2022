@@ -8,31 +8,30 @@ public final class Helpme {
     }
 
     /**
-     *
      * @param cardInput
      * @return
      */
     public static Card cardAssign(final CardInput cardInput) {
         switch (cardInput.getName()) {
-            case "Disciple" :
+            case "Disciple":
                 return new Disciple(cardInput);
-            case "Goliath" :
+            case "Goliath":
                 return new Goliath(cardInput);
-            case "Sentinel" :
+            case "Sentinel":
                 return new Sentinel(cardInput);
-            case "Winterfell" :
+            case "Winterfell":
                 return new Winterfall(cardInput);
-            case "Berserker" :
+            case "Berserker":
                 return new Berserker(cardInput);
-            case "The Cursed One" :
+            case "The Cursed One":
                 return new TheCursedOne(cardInput);
-            case "Miraj" :
+            case "Miraj":
                 return new Miraj(cardInput);
-            case "Heart Hound" :
+            case "Heart Hound":
                 return new HeartHound(cardInput);
-            case "Warden" :
+            case "Warden":
                 return new Warden(cardInput);
-            case "Firestorm" :
+            case "Firestorm":
                 return new Firestorm(cardInput);
             case "The Ripper":
                 return new TheRipper(cardInput);
@@ -42,7 +41,6 @@ public final class Helpme {
     }
 
     /**
-     *
      * @param cardInput
      * @return
      */
