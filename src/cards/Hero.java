@@ -16,11 +16,11 @@ public class Hero extends Card implements Cloneable {
      */
     public static ObjectNode cardMapper(final Hero hero) {
 
-        ObjectNode hero1 = mapper.createObjectNode();
+        ObjectNode hero1 = getMapper().createObjectNode();
         hero1.put("mana", hero.getMana());
         hero1.put("description", hero.getDescription());
 
-        ArrayNode arrayNode = mapper.createArrayNode();
+        ArrayNode arrayNode = getMapper().createArrayNode();
         for (String color : hero.getColors()) {
             arrayNode.add(color);
         }

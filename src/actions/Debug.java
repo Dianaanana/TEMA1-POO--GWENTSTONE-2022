@@ -6,6 +6,7 @@ import cards.Hero;
 import cards.Minion;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import decks.Decks;
 import fileio.ActionsInput;
 import format.Format;
 import game.StartGame;
@@ -13,14 +14,15 @@ import table.Table;
 
 import java.util.ArrayList;
 
-import static cards.Card.mapper;
+import static cards.Card.getMapper;
+import static helpme.MagicNumber.*;
 
 public final class Debug extends Actions {
     /**
      *
      * @param actionsInput
      */
-    public Debug(ActionsInput actionsInput) {
+    public Debug(final ActionsInput actionsInput) {
         super(actionsInput);
     }
 
@@ -42,12 +44,12 @@ public final class Debug extends Actions {
                 int check = Format.checkCard(Table.getPlayTable().getHandPlayerOne().get(i));
 
                 if (check == 1) {
-                    ObjectNode minionInHand = mapper.createObjectNode();
+                    ObjectNode minionInHand = getMapper().createObjectNode();
                     minionInHand = Environement.cardMapperMinion
-                                   (Table.getPlayTable().getHandPlayerOne().get(i));
+                            (Table.getPlayTable().getHandPlayerOne().get(i));
                     hand.add(minionInHand);
                 } else {
-                    ObjectNode minionInHand = mapper.createObjectNode();
+                    ObjectNode minionInHand = getMapper().createObjectNode();
                     minionInHand = Environement.cardMapperEnvironement
                                    (Table.getPlayTable().getHandPlayerOne().get(i));
                     hand.add(minionInHand);
@@ -64,11 +66,11 @@ public final class Debug extends Actions {
      * @param outputFinal
      */
     public static void getCardsInHand(final Actions action, final ArrayNode outputFinal) {
-        ObjectNode output = mapper.createObjectNode();
+        ObjectNode output = getMapper().createObjectNode();
         output.put("command", action.getCommand());
         output.put("playerIdx", action.getPlayerIdx());
 
-        ArrayNode hand = mapper.createArrayNode();
+        ArrayNode hand = getMapper().createArrayNode();
         if (action.getPlayerIdx() == 1) {
             getCardsInHandPlayerOne(action, outputFinal, output, hand);
         } else {
@@ -80,12 +82,14 @@ public final class Debug extends Actions {
                 for (int i = 0; i < Table.getPlayTable().getHandPlayerTwo().size(); i++) {
                     int check = Format.checkCard(Table.getPlayTable().getHandPlayerTwo().get(i));
                     if (check == 1) {
-                        ObjectNode minionInHand = mapper.createObjectNode();
-                        minionInHand = Minion.cardMapperMinion(Table.getPlayTable().getHandPlayerTwo().get(i));
+                        ObjectNode minionInHand = getMapper().createObjectNode();
+                        minionInHand = Minion.cardMapperMinion
+                                (Table.getPlayTable().getHandPlayerTwo().get(i));
                         hand.add(minionInHand);
                     } else {
-                        ObjectNode minionInHand = mapper.createObjectNode();
-                        minionInHand = Card.cardMapperEnvironement(Table.getPlayTable().getHandPlayerTwo().get(i));
+                        ObjectNode minionInHand = getMapper().createObjectNode();
+                        minionInHand = Card.cardMapperEnvironement
+                                (Table.getPlayTable().getHandPlayerTwo().get(i));
                         hand.add(minionInHand);
                     }
                 }
@@ -101,11 +105,13 @@ public final class Debug extends Actions {
      * @param outputFinal
      */
     public static void getPlayerDeck(final Actions action, final ArrayNode outputFinal) {
-        ObjectNode output = mapper.createObjectNode();
+        ObjectNode output = getMapper().createObjectNode();
         output.put("command", action.getCommand());
         output.put("playerIdx", action.getPlayerIdx());
 
-        ArrayNode deckOut = mapper.createArrayNode();
+        ArrayNode deckOut = getMapper().createArrayNode();
+        ArrayList<Card> deckOne1 = Table.getPlayTable().getChosenDeckOne();
+        ArrayList<Card> deckTwo2 = Table.getPlayTable().getChosenDeckTwo();
         if (action.getPlayerIdx() == 1) {
             if (Table.getPlayTable().getChosenDeckOne() == null) {
                 ArrayList<Card> deckOne = new ArrayList<>();
@@ -115,12 +121,12 @@ public final class Debug extends Actions {
                     int check = Format.checkCard(Table.getPlayTable().getChosenDeckOne().get(i));
                     if (check == 1) {
 //                        System.out.println("este check = 1");
-                        ObjectNode cardInDeck = mapper.createObjectNode();
-                        cardInDeck = Minion.cardMapperMinion(Table.getPlayTable().getChosenDeckOne().get(i));
+                        ObjectNode cardInDeck = getMapper().createObjectNode();
+                        cardInDeck = Minion.cardMapperMinion(deckOne1.get(i));
                         deckOut.add(cardInDeck);
                     } else {
-                        ObjectNode cardInDeck = mapper.createObjectNode();
-                        cardInDeck = Environement.cardMapperEnvironement(Table.getPlayTable().getChosenDeckOne().get(i));
+                        ObjectNode cardInDeck = getMapper().createObjectNode();
+                        cardInDeck = Environement.cardMapperEnvironement(deckOne1.get(i));
                         deckOut.add(cardInDeck);
                     }
                 }
@@ -132,14 +138,14 @@ public final class Debug extends Actions {
                 Table.getPlayTable().setChosenDeckTwo(deckTwo);
             } else {
                 for (int i = 0; i < Table.getPlayTable().getChosenDeckTwo().size(); i++) {
-                    int check = Format.checkCard(Table.getPlayTable().getChosenDeckTwo().get(i));
+                    int check = Format.checkCard(deckTwo2.get(i));
                     if (check == 1) {
-                        ObjectNode cardInDeck = mapper.createObjectNode();
-                        cardInDeck = Minion.cardMapperMinion(Table.getPlayTable().getChosenDeckTwo().get(i));
+                        ObjectNode cardInDeck = getMapper().createObjectNode();
+                        cardInDeck = Minion.cardMapperMinion(deckTwo2.get(i));
                         deckOut.add(cardInDeck);
                     } else {
-                        ObjectNode cardInDeck = mapper.createObjectNode();
-                        cardInDeck = Environement.cardMapperEnvironement(Table.getPlayTable().getChosenDeckTwo().get(i));
+                        ObjectNode cardInDeck = getMapper().createObjectNode();
+                        cardInDeck = Environement.cardMapperEnvironement(deckTwo2.get(i));
                         deckOut.add(cardInDeck);
                     }
                 }
@@ -155,19 +161,19 @@ public final class Debug extends Actions {
      * @param outputFinal
      */
     public static void getCardsOnTable(final Actions action, final ArrayNode outputFinal) {
-        ObjectNode output = mapper.createObjectNode();
+        ObjectNode output = getMapper().createObjectNode();
         output.put("command", action.getCommand());
 
-        ArrayNode table = mapper.createArrayNode();
+        ArrayNode table = getMapper().createArrayNode();
         if (Table.getPlayTable().getTable() == null) {
-            Card[][] tableEmpty = new Card[4][5];
+            Card[][] tableEmpty = new Card[ROW4][COL5];
             Table.getPlayTable().setTable(tableEmpty);
         } else {
 //            table = Decks.decksMapper(Table.getPlayTable().getTable());
-            ArrayNode cardsOnTable = mapper.createArrayNode();
-            for (int i = 0; i < 4; i++) {
-                ArrayNode cardsOnRow = mapper.createArrayNode();
-                for (int j = 0; j < 5; j++) {
+            ArrayNode cardsOnTable = getMapper().createArrayNode();
+            for (int i = 0; i < COL4; i++) {
+                ArrayNode cardsOnRow = getMapper().createArrayNode();
+                for (int j = 0; j < COL5; j++) {
                     if (Table.getPlayTable().getTable()[i][j] == null) {
                         continue;
                     } else {
@@ -188,8 +194,9 @@ public final class Debug extends Actions {
      * @param outputFinal
      * @param startGame
      */
-    public static void getPlayerTurn(final Actions action, final ArrayNode outputFinal, final StartGame startGame) {
-        ObjectNode output = mapper.createObjectNode();
+    public static void getPlayerTurn(final Actions action, final ArrayNode outputFinal,
+                                     final StartGame startGame) {
+        ObjectNode output = getMapper().createObjectNode();
         output.put("command", action.getCommand());
 
         int turnCounter = Table.getPlayTable().getTurnCounter();
@@ -209,11 +216,11 @@ public final class Debug extends Actions {
      * @param outputFinal
      */
     public static void getPlayerHero(final Actions action, final ArrayNode outputFinal) {
-        ObjectNode output = mapper.createObjectNode();
+        ObjectNode output = getMapper().createObjectNode();
         output.put("command", action.getCommand());
         output.put("playerIdx", action.getPlayerIdx());
 
-        ObjectNode hero = mapper.createObjectNode();
+        ObjectNode hero = getMapper().createObjectNode();
         if (action.getPlayerIdx() == 1) {
             hero = Hero.cardMapper(Table.getPlayTable().getHeroPlayerOne());
         } else {
@@ -231,7 +238,7 @@ public final class Debug extends Actions {
      * @param outputFinal
      */
     public static void getCardAtPosition(final Actions action, final ArrayNode outputFinal) {
-        ObjectNode output = mapper.createObjectNode();
+        ObjectNode output = getMapper().createObjectNode();
         output.put("command", action.getCommand());
         output.put("x", action.getX());
         output.put("y", action.getY());
@@ -255,7 +262,7 @@ public final class Debug extends Actions {
      * @param outputFinal
      */
     public static void getPlayerMana(final Actions action, final ArrayNode outputFinal) {
-        ObjectNode output = mapper.createObjectNode();
+        ObjectNode output = getMapper().createObjectNode();
         output.put("command", action.getCommand());
         output.put("playerIdx", action.getPlayerIdx());
         if (action.getPlayerIdx() == 1) {
@@ -274,7 +281,7 @@ public final class Debug extends Actions {
     public static void getEnvironmentCardsInHand(final Actions action, final ArrayNode outputFinal) {
         int playerIdx = action.getPlayerIdx();
 
-        ObjectNode output = mapper.createObjectNode();
+        ObjectNode output = getMapper().createObjectNode();
         output.put("command", action.getCommand());
         output.put("playerIdx", playerIdx);
 
@@ -285,7 +292,7 @@ public final class Debug extends Actions {
             hand = Table.getPlayTable().getHandPlayerTwo();
         }
 
-        ArrayNode cardsNode = mapper.createArrayNode();
+        ArrayNode cardsNode = getMapper().createArrayNode();
         for (int i = 0; i < hand.size(); i++) {
             int check = Format.checkCardRow(hand.get(i));
             if (check != 3)
@@ -305,16 +312,16 @@ public final class Debug extends Actions {
      * @param outputFinal
      */
     public static void getFrozenCardsOnTable(final Actions action, final ArrayNode outputFinal) {
-        ObjectNode output = mapper.createObjectNode();
+        ObjectNode output = getMapper().createObjectNode();
         output.put("command", action.getCommand());
 
         if (Table.getPlayTable().getTable() == null) {
-            Card[][] tableEmpty = new Card[4][5];
+            Card[][] tableEmpty = new Card[ROW4][COL5];
             Table.getPlayTable().setTable(tableEmpty);
         } else {
-            ArrayNode cardsOnTable = mapper.createArrayNode();
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 5; j++) {
+            ArrayNode cardsOnTable = getMapper().createArrayNode();
+            for (int i = 0; i < COL4; i++) {
+                for (int j = 0; j < COL5; j++) {
                     if (Table.getPlayTable().getTable()[i][j] == null) {
                         continue;
                     }

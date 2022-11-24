@@ -3,7 +3,11 @@ package cards;
 import fileio.CardInput;
 
 public class Winterfall extends Card implements Cloneable {
-    public Winterfall(CardInput cardInput) {
+    /**
+     *
+     * @param cardInput
+     */
+    public Winterfall(final CardInput cardInput) {
         super(cardInput);
     }
 

@@ -2,6 +2,8 @@ package cards;
 
 import fileio.CardInput;
 
+import static helpme.MagicNumber.COL5;
+
 public final class Kocioraw extends Hero implements Cloneable {
     /**
      *
@@ -29,7 +31,7 @@ public final class Kocioraw extends Hero implements Cloneable {
             return;
         }
 
-        for (int c = 0; c < 5; c++) {
+        for (int c = 0; c < COL5; c++) {
             if (row[c] == null) {
                 continue;
             }

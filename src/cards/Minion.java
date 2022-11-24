@@ -64,13 +64,13 @@ public class Minion extends Card implements Cloneable {
      * @return
      */
     public ObjectNode cardMapper(final Minion minion) {
-        ObjectNode minion1 = mapper.createObjectNode();
+        ObjectNode minion1 = getMapper().createObjectNode();
         minion1.put("mana", minion.getMana());
         minion1.put("attackDamage", minion.getAttackDamage());
         minion1.put("health", minion.getHealth());
         minion1.put("description", minion.getDescription());
 
-        ArrayNode arrayNode = mapper.createArrayNode();
+        ArrayNode arrayNode = getMapper().createArrayNode();
         for (String color : minion.getColors()) {
             arrayNode.add(color);
         }

@@ -7,6 +7,7 @@ import actions.Statistics;
 import cards.Card;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import format.Format;
+import game.Game;
 import game.StartGame;
 import table.Table;
 
@@ -16,10 +17,6 @@ import static helpme.MagicNumber.MAX_ROW;
 import static server.Server.*;
 
 public final class Play {
-
-    // method playGame starts a new game initiating player's one deck, player's
-    // two deck,player's one hand, player's two hand, the table and an array
-    // counting the cards on every row
 
     /**
      * @param gameNr
@@ -64,6 +61,7 @@ public final class Play {
         }
 
         // executing all commands
+        Game currGame = getGames().get(gameNr);
         for (Actions action : getGames().get(gameNr).getActions()) {
             switch (action.getCommand()) {
                 case ("getCardsInHand"):
@@ -76,7 +74,7 @@ public final class Play {
                     Debug.getCardsOnTable(action, outputFinal);
                     break;
                 case ("getPlayerTurn"):
-                    Debug.getPlayerTurn(action, outputFinal, getGames().get(gameNr).getStartGame());
+                    Debug.getPlayerTurn(action, outputFinal, currGame.getStartGame());
                     break;
                 case ("getPlayerHero"):
                     Debug.getPlayerHero(action, outputFinal);
@@ -103,22 +101,22 @@ public final class Play {
                     Statistics.getPlayerTwoWins(action, outputFinal, getGames());
                     break;
                 case ("endPlayerTurn"):
-                    Attacks.endTurn(action, outputFinal, getGames().get(gameNr).getStartGame());
+                    Attacks.endTurn(action, outputFinal, currGame.getStartGame());
                     break;
                 case ("placeCard"):
-                    Attacks.placeCard(action, outputFinal, getGames().get(gameNr).getStartGame());
+                    Attacks.placeCard(action, outputFinal, currGame.getStartGame());
                     break;
                 case ("cardUsesAttack"):
-                    Attacks.cardUsesAttack(action, outputFinal, getGames().get(gameNr).getStartGame());
+                    Attacks.cardUsesAttack(action, outputFinal, currGame.getStartGame());
                     break;
                 case ("cardUsesAbility"):
-                    Attacks.cardUsesAbility(action, outputFinal, getGames().get(gameNr).getStartGame());
+                    Attacks.cardUsesAbility(action, outputFinal, currGame.getStartGame());
                     break;
                 case ("useAttackHero"):
-                    Attacks.useAttackHero(action, outputFinal, getGames().get(gameNr).getStartGame());
+                    Attacks.useAttackHero(action, outputFinal, currGame.getStartGame());
                     break;
                 case ("useHeroAbility"):
-                    Attacks.useHeroAbility(action, outputFinal, getGames().get(gameNr).getStartGame());
+                    Attacks.useHeroAbility(action, outputFinal, currGame.getStartGame());
                     break;
                 case ("useEnvironmentCard"):
                     Attacks.useEnvironmentCard(action, outputFinal,

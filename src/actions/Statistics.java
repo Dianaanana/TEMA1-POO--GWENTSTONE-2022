@@ -9,7 +9,7 @@ import table.Table;
 
 import java.util.ArrayList;
 
-import static cards.Card.mapper;
+import static cards.Card.getMapper;
 
 public class Statistics extends Actions {
     public Statistics(final ActionsInput actionsInput) {
@@ -24,7 +24,7 @@ public class Statistics extends Actions {
      */
     public static void getTotalGamesPlayed(final Actions action, final ArrayNode outputFinal,
                                            final ArrayList<Game> games) {
-        ObjectNode output = mapper.createObjectNode();
+        ObjectNode output = getMapper().createObjectNode();
         output.put("command", action.getCommand());
         output.put("output", Server.getInstance().getGamePlayed());
         outputFinal.add(output);
@@ -38,7 +38,7 @@ public class Statistics extends Actions {
      */
     public static void getPlayerOneWins(final Actions action, final ArrayNode outputFinal,
                                         final ArrayList<Game> games) {
-        ObjectNode output = mapper.createObjectNode();
+        ObjectNode output = getMapper().createObjectNode();
         output.put("command", action.getCommand());
         output.put("output", Table.getPlayTable().getPlayerOneWins());
         outputFinal.add(output);
@@ -52,7 +52,7 @@ public class Statistics extends Actions {
      */
     public static void getPlayerTwoWins(final Actions action, final ArrayNode outputFinal,
                                         final ArrayList<Game> games) {
-        ObjectNode output = mapper.createObjectNode();
+        ObjectNode output = getMapper().createObjectNode();
         output.put("command", action.getCommand());
         output.put("output", Server.getInstance().getGamePlayed() -
                    Table.getPlayTable().getPlayerOneWins());

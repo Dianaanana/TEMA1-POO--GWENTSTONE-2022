@@ -9,7 +9,7 @@ import format.Format;
 import game.StartGame;
 import table.Table;
 
-import static cards.Card.mapper;
+import static cards.Card.getMapper;
 import static helpme.MagicNumber.*;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public final class Attacks extends Actions {
         if (deckOne.size() > cardIndex) {
             int check = Format.checkCardRow(deckOne.get(cardIndex));
 //            1 -- front row || 2 -- back row || 3 -- environement
-            if (check == 3) {
+            if (check == ENVIRONMENT_CARD) {
                 Error.putErrorEnvironement(action, outputFinal, cardIndex);
             } else {
                 // check mana
@@ -63,8 +63,8 @@ public final class Attacks extends Actions {
 
                 Card cardToBePut = deckOne.get(cardIndex);
                 deckOne.remove(cardIndex);
-                Table.getPlayTable().setManaPlayerOne(Table.getPlayTable().getManaPlayerOne() -
-                                                      cardToBePut.getMana());
+                Table.getPlayTable().setManaPlayerOne(Table.getPlayTable().getManaPlayerOne()
+                        - cardToBePut.getMana());
                 ArrayList<Integer> vector = Table.getPlayTable().getCountCardsOnRows();
                 int position = vector.get(row);
                 Table.getPlayTable().getTable()[row][position] = cardToBePut;
@@ -90,7 +90,7 @@ public final class Attacks extends Actions {
 
         if (deckTwo.size() > cardIndex) {
             int check = Format.checkCardRow(deckTwo.get(cardIndex));
-            if (check == 3) {
+            if (check == ENVIRONMENT_CARD) {
                 Error.putErrorEnvironement(action, outputFinal, cardIndex);
             } else if (check == 2) {            // row 0
                 // check mana
@@ -107,8 +107,8 @@ public final class Attacks extends Actions {
 
                 Card cardToBePut = deckTwo.get(cardIndex);
                 deckTwo.remove(cardIndex);
-                Table.getPlayTable().setManaPlayerTwo(Table.getPlayTable().getManaPlayerTwo() -
-                                                      cardToBePut.getMana());
+                Table.getPlayTable().setManaPlayerTwo(Table.getPlayTable().getManaPlayerTwo()
+                        - cardToBePut.getMana());
                 ArrayList<Integer> vector = Table.getPlayTable().getCountCardsOnRows();
                 int position = Table.getPlayTable().getCountCardsOnRows().get(0);
                 Table.getPlayTable().getTable()[0][position] = cardToBePut;
@@ -130,8 +130,8 @@ public final class Attacks extends Actions {
 
                 Card cardToBePut = deckTwo.get(cardIndex);
                 deckTwo.remove(cardIndex);
-                Table.getPlayTable().setManaPlayerTwo(Table.getPlayTable().getManaPlayerTwo() -
-                                                      cardToBePut.getMana());
+                Table.getPlayTable().setManaPlayerTwo(Table.getPlayTable().getManaPlayerTwo()
+                        - cardToBePut.getMana());
                 int position = Table.getPlayTable().getCountCardsOnRows().get(1);
                 Table.getPlayTable().getTable()[1][position] = cardToBePut;
                 ArrayList<Integer> vector = Table.getPlayTable().getCountCardsOnRows();
@@ -180,7 +180,7 @@ public final class Attacks extends Actions {
                 return;
             }
         } else {
-            if (attacked.getX() != 2 && attacked.getX() != 3) {
+            if (attacked.getX() != 2 && attacked.getX() != ROW3) {
                 Error.putErrorNotAttackingEnemy(action, outputFinal);
                 return;
             }
@@ -206,11 +206,11 @@ public final class Attacks extends Actions {
         int startRow, endRow;
         if (turnCounter % 2 == 0 && playerIndex == 1 || turnCounter % 2 == 1 && playerIndex == 2) {
             startRow = 0;
-            endRow = 2;
+            endRow = ROW2;
 
         } else {
-            startRow = 2;
-            endRow = 4;
+            startRow = ROW2;
+            endRow = ROW4;
         }
 
         boolean tankExists = false;
@@ -256,37 +256,40 @@ public final class Attacks extends Actions {
         // daca se incepe o tura noua se da o carte noua si se da mana +1 pana la 10
 
         if (Table.getPlayTable().getTurnCounter() % 2 == 1) {
-            // dau o carte noua la fiecare + mana++
-            // todo if exista carte
-            if (Table.getPlayTable().getChosenDeckOne() != null &&
-                    Table.getPlayTable().getChosenDeckOne().size() > 0) {
+
+            if (Table.getPlayTable().getChosenDeckOne() != null
+                    && Table.getPlayTable().getChosenDeckOne().size() > 0) {
                 Card cardAddInHandOne = Table.getPlayTable().getChosenDeckOne().get(0);
                 Table.getPlayTable().getHandPlayerOne().add(cardAddInHandOne);
                 //Table.getPlayTable().setHandPlayerOne(Table.getPlayTable().getHandPlayerOne());
                 Table.getPlayTable().getChosenDeckOne().remove(0);
             }
             int manaToBeGiven = (Table.getPlayTable().getTurnCounter() + 1) / 2 + 1;
-            if (manaToBeGiven > MAX_MANA)
+            if (manaToBeGiven > MAX_MANA) {
                 manaToBeGiven = MAX_MANA;
-            Table.getPlayTable().setManaPlayerOne(Table.getPlayTable().getManaPlayerOne() + manaToBeGiven);
+            }
 
-            if (Table.getPlayTable().getChosenDeckTwo() != null &&
-                    Table.getPlayTable().getChosenDeckTwo().size() > 0) {
+            Table.getPlayTable().setManaPlayerOne(Table.getPlayTable().getManaPlayerOne()
+                                                + manaToBeGiven);
+
+            if (Table.getPlayTable().getChosenDeckTwo() != null
+                    && Table.getPlayTable().getChosenDeckTwo().size() > 0) {
                 Card cardAddInHandTwo = Table.getPlayTable().getChosenDeckTwo().get(0);
                 Table.getPlayTable().getHandPlayerTwo().add(cardAddInHandTwo);
                 //Table.getPlayTable().setHandPlayerTwo(Table.getPlayTable().getHandPlayerTwo());
                 Table.getPlayTable().getChosenDeckTwo().remove(0);
             }
 
-            Table.getPlayTable().setManaPlayerTwo(Table.getPlayTable().getManaPlayerTwo() + manaToBeGiven);
+            Table.getPlayTable().setManaPlayerTwo(Table.getPlayTable().getManaPlayerTwo()
+                                                + manaToBeGiven);
         }
 
         int startRow, endRow;
         int turnCounter = Table.getPlayTable().getTurnCounter();
         int playerIndex = startGame.getStartingPlayer();
         if (turnCounter % 2 == 0 && playerIndex == 1 || turnCounter % 2 == 1 && playerIndex == 2) {
-            startRow = 2;
-            endRow = 4;
+            startRow = ROW2;
+            endRow = ROW4;
         } else {
             startRow = 0;
             endRow = ROW2;
@@ -368,7 +371,7 @@ public final class Attacks extends Actions {
         // verific daca atacatorul e Disciple
         if (attacker != null && attacker.getName().equals("Disciple")) {
             if (playerIndex == 1) {
-                if (attackedCoord.getX() != 2 && attackedCoord.getX() != 3) {
+                if (attackedCoord.getX() != 2 && attackedCoord.getX() != ROW3) {
                     Error.putErrorAllyCard(action, outputFinal);
                     return;
                 }
@@ -512,7 +515,7 @@ public final class Attacks extends Actions {
         attackedHero.setHealth(attackedHero.getHealth() - attackerMinion.getAttackDamage());
         attackerCard.setHasAttackedThisRound(1);
         if (attackedHero.getHealth() <= 0) {
-            ObjectNode output = mapper.createObjectNode();
+            ObjectNode output = getMapper().createObjectNode();
             String outputMessage;
             if (turnCounter % 2 == 0 && playerIndex == 1 || turnCounter % 2 == 1 && playerIndex == 2) {
                 outputMessage = "Player one killed the enemy hero.";
@@ -656,7 +659,7 @@ public final class Attacks extends Actions {
         int check = Format.checkCardRow(currentPlayerDeck.get(cardIndex));
         Card cardToBePlayed = currentPlayerDeck.get(cardIndex);
         if (check != 3) {
-            ObjectNode output = mapper.createObjectNode();
+            ObjectNode output = getMapper().createObjectNode();
             output.put("command", action.getCommand());
             output.put("handIdx", cardIndex);
             output.put("affectedRow", affectedRow);
@@ -674,7 +677,7 @@ public final class Attacks extends Actions {
             }
 
             if (currentPlayerDeck.get(cardIndex).getMana() > mana) {
-                ObjectNode output = mapper.createObjectNode();
+                ObjectNode output = getMapper().createObjectNode();
                 output.put("affectedRow", affectedRow);
                 output.put("command", action.getCommand());
                 String outputError = "Not enough mana to use environment card.";
@@ -686,7 +689,7 @@ public final class Attacks extends Actions {
 
             if (playerIndex == 1 && affectedRow != 0 && affectedRow != 1 || playerIndex == 2
                     && affectedRow != 2 && affectedRow != 3) {
-                ObjectNode output = mapper.createObjectNode();
+                ObjectNode output = getMapper().createObjectNode();
                 output.put("affectedRow", affectedRow);
                 output.put("command", action.getCommand());
                 String outputError = "Chosen row does not belong to the enemy.";
@@ -699,7 +702,7 @@ public final class Attacks extends Actions {
             Card[][] table = Table.getPlayTable().getTable();
             switch (cardToBePlayed.getName()) {
                 case "Firestorm":
-                    for (int c = 0; c < 5; c++) {
+                    for (int c = 0; c < COL5; c++) {
                         // TODO table[][ultimul element] != null
                         if (table[affectedRow][c] == null) {
                             continue;
@@ -724,9 +727,9 @@ public final class Attacks extends Actions {
                     }
                     break;
                 case "Heart Hound":
-                    int reflectedRow = 3 - affectedRow;
-                    if (table[reflectedRow][4] != null) {
-                        ObjectNode output = mapper.createObjectNode();
+                    int reflectedRow = ROW3 - affectedRow;
+                    if (table[reflectedRow][COL4] != null) {
+                        ObjectNode output = getMapper().createObjectNode();
                         output.put("affectedRow", affectedRow);
                         output.put("command", action.getCommand());
                         String outputError = "Cannot steal enemy card since the player's row is full.";
@@ -737,7 +740,7 @@ public final class Attacks extends Actions {
                     }
 
                     Card maxHealthCard = table[affectedRow][0];
-                    for (int c = 1; c < 4; c++) {
+                    for (int c = 1; c < COL4; c++) {
                         Card card = table[affectedRow][c];
                         if (card == null) {
                             continue;
@@ -783,7 +786,7 @@ public final class Attacks extends Actions {
             return;
         }
 
-        for (int c = 0; c < 5; c++) {
+        for (int c = 0; c <COL5; c++) {
             if (cardRow[c] == null) {
                 continue;
             }
@@ -793,7 +796,7 @@ public final class Attacks extends Actions {
         }
 
         int firstNullPosition = -1;
-        for (int c = 0; c < 5; c++) {
+        for (int c = 0; c < COL5; c++) {
             if (cardRow[c] == null) {
                 firstNullPosition = c;
                 break;
@@ -804,7 +807,7 @@ public final class Attacks extends Actions {
             return;
         }
 
-        for (int c = firstNullPosition + 1; c < 5; c++) {
+        for (int c = firstNullPosition + 1; c < COL5; c++) {
             if (cardRow[c] == null) {
                 continue;
             }

@@ -11,11 +11,11 @@ public class Environement extends Card implements Cloneable {
      * @return
      */
     public ObjectNode cardMapper(final Environement environement) {
-        ObjectNode environement1 = mapper.createObjectNode();
+        ObjectNode environement1 = getMapper().createObjectNode();
         environement1.put("mana", environement.getMana());
         environement1.put("description", environement.getDescription());
 
-        ArrayNode arrayNode = mapper.createArrayNode();
+        ArrayNode arrayNode = getMapper().createArrayNode();
         for (String color : environement.getColors()) {
             arrayNode.add(color);
         }
